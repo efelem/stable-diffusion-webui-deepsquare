@@ -3,7 +3,8 @@
 #
 # This should match the CUDA version of your host's driver
 # Run the nvidia-smi command to check the version
-FROM nvidia/cuda:12.0.0-runtime-ubuntu22.04
+FROM nvcr.io/nvidia/nvhpc:22.9-devel-cuda11.7-ubuntu22.04
+#FROM nvidia/cuda:12.0.0-runtime-ubuntu22.04
 
 # Hint: set these to your user ID
 # See https://stackoverflow.com/questions/56844746/how-to-set-uid-and-gid-in-docker-compose
@@ -40,7 +41,6 @@ USER $APP_UID:$APP_GID
 
 # Hint: mount this volume to avoid downloading stuff every time
 # See docker-compose.yml for an example
-VOLUME /home/app/project
 WORKDIR /home/app/project
 
 # Set the install location of stable-diffusion-webui
@@ -62,6 +62,15 @@ ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4
 
 # Copy entrypoint.sh
 COPY ./rootfs/ /
+
+# Run
+RUN git clone --branch "${WEBUI_BRANCH:-v1.3.0}" https://github.com/AUTOMATIC1111/stable-diffusion-webui.git \
+    && cd stable-diffusion-webui \
+    && cp /webui-user.sh ./ \
+    && sed -i 's/start()/#start()/' launch.py \
+    && ./webui.sh \
+    && sed -i 's/#start()/start()/' launch.py
+
 
 # Set the entrypoint
 # This checks for important runtime dependencies before running webui.sh

@@ -1,7 +1,6 @@
 services:
   webui:
-    build:
-      context: .
+    image: registry-1.deepsquare.run/library/automatic111:gpu
     deploy:
       resources:
         reservations:

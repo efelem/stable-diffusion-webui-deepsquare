@@ -9,9 +9,9 @@
   "continuousOutputSync": true,
   "steps": [
     {
-      "name": "chatbot",
+      "name": "automatic111",
       "run": {
-        "mapRoot": true,
+        "mapRoot": false,
         "env": [
           {
             "key": "MODEL_NAME",
@@ -40,7 +40,7 @@
           }
         ],
         "shell": "/bin/bash",
-        "command": "set -e\n\nmkdir $DEEPSQUARE_TMP/automatic1111 && ln -sf $DEEPSQUARE_TMP/automatic1111 /home/app/project && ./webui.sh --listen --port 7860"
+        "command": "set -e \nrm -Rf /home/app/project/stable-diffusion-webui/models\nln -sf $DEEPSQUARE_TMP/models /home/app/project/stable-diffusion-webui/models\ncd /home/app/project/stable-diffusion-webui\nsed -i 's/can_run_as_root=0/can_run_as_root=1/' ./webui.sh\n./webui.sh --listen --port 7860 &>/dev/null"
       }
     }
   ]

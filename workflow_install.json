@@ -1,0 +1,47 @@
+{
+    "enableLogging": true,
+    "resources": {
+        "tasks": 1,
+        "cpusPerTask": 8,
+        "memPerCpu": 8000,
+        "gpusPerTask": 2
+    },
+    "continuousOutputSync": true,
+    "steps": [
+        {
+            "name": "automatic111",
+            "run": {
+                "mapRoot": false,
+                "env": [
+                    {
+                        "key": "MODEL_NAME",
+                        "value": "vicuna-13b"
+                    }
+                ],
+                "container": {
+                    "registry": "registry-1.deepsquare.run",
+                    "image": "library/automatic111:gpu",
+                    "mounts": [
+                        {
+                            "hostDir": "/data/beegfs/models",
+                            "containerDir": "/opt/models",
+                            "options": "ro"
+                        }
+                    ]
+                },
+                "network": "slirp4netns",
+                "customNetworkInterfaces": [
+                    {
+                        "bore": {
+                            "address": "bore.deepsquare.run",
+                            "port": 2200,
+                            "targetPort": 7860
+                        }
+                    }
+                ],
+                "shell": "/bin/bash",
+                "command": "set -e \nmkdir -p $DEEPSQUARE_TMP/models \nmv /home/app/project/stable-diffusion-webui/models/* $DEEPSQUARE_TMP/models\nrmdir /home/app/project/stable-diffusion-webui/models\nln -sf $DEEPSQUARE_TMP/models /home/app/project/stable-diffusion-webui/models\ncd /home/app/project/stable-diffusion-webui\nsed -i 's/can_run_as_root=0/can_run_as_root=1/' ./webui.sh\n./webui.sh --listen --port 7860"
+            }
+        }
+    ]
+}

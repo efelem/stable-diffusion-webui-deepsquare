@@ -1,49 +1,18 @@
-# AUTOMATIC1111 Stable Diffusion Web UI Docker
+# AUTOMATIC1111 Stable Diffusion Web UI on DeepSquare
 
-Dockerized
-[AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
-for generating images with Stable Diffusion on Linux.
+This repository is an adaptation of [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) dockerized for generating images with Stable Diffusion, now readily deployable on DeepSquare!
 
+[![Launch on DeepSquare](https://img.shields.io/badge/Launch%20on-DeepSquare-blue?style=for-the-badge&logo=appveyor)](https://app.deepsquare.run/sandbox?workflowId=30789e96-3d7e-48fd-a372-62a106796eb7)
 
 ## Features
 
+- [x] **Direct DeepSquare Launch** - Ready to run on DeepSquare with a single click.
 - [x] **Simple and focused** - Only AUTOMATIC1111's webui, nothing else.
-- [x] **Easy set-up** - One command to both install and launch.
 - [x] **Easy config** - Manage your entire webui directory on the host.
-- [x] **Straightforward** - Nothing fancy. Default settings. Simple Dockerfile.
-- [x] **Non-root** - Files are owned by your user. Nothing runs as root.
-- [x] **Fast** - Start-up and shutdown are as snappy as running natively.
+- [x] **Straightforward Docker Setup** - Nothing fancy. Default settings. Simple Dockerfile.
+- [x] **Non-root** - Files are owned by your user. No root operations.
+- [x] **Fast Operations** - Quick start-up and shutdown, similar to native running.
 
-## Requirements
+## How to Launch on DeepSquare
 
-- Linux (for now)
-- An Nvidia GPU (hardware)
-- Docker (>= 19)
-- [nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
-
-## How to Use
-
-Enjoy a streamlined experience with [`just`](https://github.com/casey/just):
-
-```sh
-# Build with your user ID
-just build
-
-# Test if your environment is supported
-just test-gpu
-
-# Run
-just up
-```
-
-Otherwise, you can use the standard docker tools as expected:
-
-```sh
-docker compose up
-```
-
-## See Also
-
-- [jchook/kohya-trainer-docker](https://github.com/jchook/kohya-trainer-docker/). - train models to use with this webui
-- [AbdBarho/stable-diffusion-webui-docker](https://github.com/AbdBarho/stable-diffusion-webui-docker) - alternative docker interface for this webui
-
+Simply click the "Launch on DeepSquare" button above!
